@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+
+    wordpress:
+      image: wordpress:6.0.3-apache
+      ports:
+        - 8080:80
+      environment:
+        WORDPRESS_DB_HOST: mysql
+        WORDPRESS_DB_USER: esteban
+        WORDPRESS_DB_PASSWORD: estebitan
+        WORDPRESS_DB_NAME: wordpress
+
+
+    mysql:
+      image: mysql:8.0.31
+      command: --default-authentication-plugin=mysql_native_password
+      environment:
+        MYSQL-DATABASE: wordpress
+        MYSQL_ROOT_PASSWORD: estebitan
+      volumes:
+        - ~/docker/mysql-data:/var/lib/mysql
