@@ -42,3 +42,6 @@ services:
       - ~/docker/mysql-data:/var/lib/mysql
     networks:
       - dimensi
+
+volumes:
+  wordpress:
