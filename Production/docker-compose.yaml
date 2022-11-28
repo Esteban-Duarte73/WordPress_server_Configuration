@@ -1,13 +1,25 @@
-version: '3.8'
-
+version: '3'
+networks:
+  dimensi:
+    external: true
 services:
-
+  nginx:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      - dimensi
+      
   wordpress:
     build:
       context: ../../mysite/
       dockerfile: docker/Dockerfile
-    ports:
-      - 8080:80
     environment:
       WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_USER: esteban
@@ -15,6 +27,8 @@ services:
       WORDPRESS_DB_NAME: wordpress
     volumens:
       - wordpress:/var/www/html
+    networks:
+      - dimensi
 
   mysql:
     image: mysql:8.0.31
@@ -26,4 +40,5 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
       - ~/docker/mysql-data:/var/lib/mysql
-
+    networks:
+      - dimensi
