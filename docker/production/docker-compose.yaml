@@ -18,7 +18,7 @@ services:
 
   wordpress:
     build:
-      context: ../../mysite/
+      context: ../mysite/
       dockerfile: docker/Dockerfile
     environment:
       WORDPRESS_DB_HOST: mysql
