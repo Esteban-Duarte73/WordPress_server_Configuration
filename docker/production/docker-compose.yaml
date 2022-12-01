@@ -13,6 +13,7 @@ services:
     volumes:
       - /var/lib/nginx/data:/data
       - /var/lib/nginx/letsencrypt:/etc/letsencrypt
+      - ../../services/wordpress:/var/www/html
     networks:
       - dimensi
 
@@ -28,7 +29,9 @@ services:
     volumes:
       - ../../services/wordpress:/var/www/html
     networks:
-      - dimensi
+      dimensi:
+        aliases:
+          - wordpress
 
   mysql:
     image: mysql:8.0.31
