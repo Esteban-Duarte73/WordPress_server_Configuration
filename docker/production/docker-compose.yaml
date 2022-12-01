@@ -11,14 +11,14 @@ services:
       - '81:81'
       - '443:443'
     volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
+      - /var/lib/nginx/data:/data
+      - /var/lib/nginx/letsencrypt:/etc/letsencrypt
     networks:
       - dimensi
 
   wordpress:
     build:
-      context: ../mysite/
+      context: ../../services/wordpress/
       dockerfile: docker/Dockerfile
     environment:
       WORDPRESS_DB_HOST: mysql
@@ -26,7 +26,7 @@ services:
       WORDPRESS_DB_PASSWORD: estebitan
       WORDPRESS_DB_NAME: wordpress
     volumes:
-      - wordpress:/var/www/html
+      - ../../services/wordpress:/var/www/html
     networks:
       - dimensi
 
@@ -39,7 +39,7 @@ services:
       MYSQL_PASSWORD: estebitan
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
-      - ~/docker/mysql-data:/var/lib/mysql
+      - /var/lib/mysql-data:/var/lib/mysql
     networks:
       - dimensi
 
