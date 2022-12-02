@@ -13,7 +13,6 @@ services:
     volumes:
       - /var/lib/nginx/data:/data
       - /var/lib/nginx/letsencrypt:/etc/letsencrypt
-      - ../../services/wordpress:/var/www/html
     networks:
       - dimensi
 
@@ -27,7 +26,7 @@ services:
       WORDPRESS_DB_PASSWORD: estebitan
       WORDPRESS_DB_NAME: wordpress
     volumes:
-      - ../../services/wordpress:/var/www/html
+      - ../../services/wordpress/html:/var/www/html
     networks:
       dimensi:
         aliases:
